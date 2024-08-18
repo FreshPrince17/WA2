@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+    <p>Welcome to A Fashion Searcher</p>
+    <p>This website is a mini search engine that looks for your favourite fashion items. Results are compiled from End Clothing Singapore and Grailed USA.</p>
+    <p>For Grailed Items, the description is not supported as there are no official descriptions for resell vintage items. More details at the official website are available</p>
+    <form action="/" method="post">
+        <label for="item"></label>
+        <input type="text" name="item" id="item">
+        <input type="submit" placeholder="Search">
+    </form>
+    <div class="cont" id="end">
+        {% for name, url_key, img_url_key, price in end_item_list %}
+        <ul>
+            <li>{{ name }}</li>
+            <li>
+                <form action="/desc" method="get" class="descForm">
+                    <input type="hidden" name="name" class="name">
+                    <input type="hidden" name="brand" class="brand">
+                </form>
+                
+                <p class="formSubmit" data-brand="END" data-name="{{ name }}">Description</p>
+            </li>
+            <li><img src="{{ img_url_key }}""></li>
+            <li class="price">${{ price }}</li>
+            <li>
+                <form action="/purchaselink" method="get" class="purchaseForm">
+                    <input type="hidden" name="url" class="url">
+                </form>
+
+                <div class="formLinkSubmit" target="_blank" data-url="{{ url_key }}">
+                    <button class="purchaseBtn">Purchase</button>
+                </div>
+            </li> 
+        </ul>
+        {% endfor %}
+    </div>    
+
+    <div class="cont" id="grailed">
+        {% for name, url_key, img_url_key, price in grailed_item_list %}
+        <ul>
+            <li>{{ name }}</li>
+            <li><img src="{{ img_url_key }}""></li>
+            <li class="price">${{ price }}</li>
+            <li>
+                <form action="/purchaselink" method="get" class="purchaseForm">
+                    <input type="hidden" name="url" class="url">
+                </form>
+
+                <div class="formLinkSubmit" target="_blank" data-url="{{ url_key }}">
+                    <button class="purchaseBtn">Purchase</button>
+                </div>
+            </li> 
+        </ul> 
+        {% endfor %}
+    </div>
+</body>
+</html>

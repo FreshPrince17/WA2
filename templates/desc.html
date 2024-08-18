@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_desc.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="description">{{ desc }}</div>
+        <div class="image-container">
+            <img src="{{ model_img_url }}" alt="Model Image">
+        </div>
+    </div>
+</body>
+</html>
